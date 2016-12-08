@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
 
-  root to: 'products#index'
+  root to: 'products#index' # THis listens to homepage requests (/)
 
   resources :products, only: [:index, :show]
-  resources :categories, only: [:show]
+  resources :categories, only: [:show] #add :index later....
 
   resource :cart, only: [:show] do
     put    :add_item
