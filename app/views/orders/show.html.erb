@@ -1,10 +1,42 @@
 <section class="orders-show">
 
   <header class="page-header">
+    <h2> <%= @order.email %></h2>
+
     <h1>Order #<%= @order.id %></h1>
+
   </header>
 
   <div class="order-summary jumbotron">
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th colspan="2">Product</th>
+          <th>Unit Price</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+          <% @orders.each do |ord| %>
+            <%= render 'item', product_id: ord[:product_id], quantity: ord[:quantity], lineTotal: ord[:total_price_cents] %>
+          <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th colspan="4">
+            TOTAL:
+          </th>
+          <th>
+            <%= humanized_money_with_symbol(@order.total) %>
+          </th>
+        </tr>
+      </tfoot>
+  </table>
+
+
+
     <h4>Thank you for your order!</h4>
   </div>
 
