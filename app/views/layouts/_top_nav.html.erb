@@ -26,9 +26,9 @@
           </ul>
         </li>
         <% if current_user %>
-        <li>
-          Signed in as <%= current_user.name %>
-        </li>
+        <h2>
+          <%= current_user.email %>
+        </h2>
         <li>
           <%= link_to "Logout", '/logout' %>
         </li>

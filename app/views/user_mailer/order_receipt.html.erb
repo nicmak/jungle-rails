@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <h1><%= @email %></h1>
+  <body>
+
+  <% @content.each do |lineItem| %>
+    <%=lineItem.quantity %>
+    <%=lineItem.itemCost %>
+    <%=lineItem.lineTotal %>
+  <% end %>
+
+
+
+    <p>Thanks for purchasing!</p>
+  </body>
+</html>

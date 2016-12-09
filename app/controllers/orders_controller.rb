@@ -3,12 +3,22 @@ class OrdersController < ApplicationController
   def show
     @order = Order.find(params[:id])
     @orders = Order.find(params[:id]).line_items
-
   end
 
   def create
     charge = perform_stripe_charge
     order  = create_order(charge)
+    content = []
+    order.line_items.each do |item|
+    @content = {
+      quantity: item.quantity,
+      itemCost: item.item_price_cents,
+      lineTotal: item.total_price_cents
+    }
+    content.push(@content)
+    end
+    byebug
+    ::UserMailer.order_receipt(order.email, content).deliver_now
 
     if order.valid?
       empty_cart!
@@ -17,9 +27,9 @@ class OrdersController < ApplicationController
       redirect_to cart_path, error: order.errors.full_messages.first
     end
 
-  rescue Stripe::CardError => e
-    redirect_to cart_path, error: e.message
-  end
+    rescue Stripe::CardError => e
+      redirect_to cart_path, error: e.message
+    end
 
   private
 
@@ -35,6 +45,8 @@ class OrdersController < ApplicationController
       description: "Khurram Virani's Jungle Order",
       currency:    'cad'
     )
+
+
   end
 
   def create_order(stripe_charge)
