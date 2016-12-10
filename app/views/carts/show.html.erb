@@ -4,6 +4,10 @@
     <h1>My Cart</h1>
   </header>
 
+  <% if @cart_total = 0 %>
+  <p>Hmmm.... It seems that your cart is empty, so...buy stuff...</p>
+  <%= link_to 'Home', "/" %>
+  <% else %>
   <div class="panel panel-default items">
     <table class="table table-bordered">
       <thead>
@@ -15,7 +19,6 @@
         </tr>
       </thead>
       <tbody>
-        <% @cart_total = 0 %>
         <% cart.each do |product_id, details| %>
           <%= render 'item', product_id: product_id, details: details %>
         <% end %>
@@ -32,7 +35,6 @@
       </tfoot>
     </table>
   </div>
-
   <div class="row">
     <div class="col-xs-12">
       <%= form_tag orders_path do %>
@@ -50,4 +52,5 @@
     </div>
   </div>
 
+  <% end %>
 </section>
