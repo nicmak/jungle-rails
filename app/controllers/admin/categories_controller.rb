@@ -1,4 +1,5 @@
 class Admin::CategoriesController < ApplicationController
+  http_basic_authenticate_with name: "jungle", password: "book"
 
   def index
     @categories = Category.all
@@ -26,7 +27,7 @@ class Admin::CategoriesController < ApplicationController
     )
   end
 
-  
+
 
 
 
