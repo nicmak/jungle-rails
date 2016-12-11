@@ -1,13 +1,12 @@
 <section class="cart-show">
 
+  <% if @cart_total = 0 %>
   <header class="page-header">
     <h1>My Cart</h1>
   </header>
 
-  <% @cart_total = 0 %>
   <p>Hmmm.... It seems that your cart is empty, so...buy stuff...</p>
   <%= link_to 'Home', "/" %>
-  
   <div class="panel panel-default items">
     <table class="table table-bordered">
       <thead>
@@ -35,6 +34,7 @@
       </tfoot>
     </table>
   </div>
+
   <div class="row">
     <div class="col-xs-12">
       <%= form_tag orders_path do %>

@@ -3,6 +3,7 @@ class OrdersController < ApplicationController
   def show
     @order = Order.find(params[:id])
     @orders = Order.find(params[:id]).line_items
+    byebug
   end
 
   def create

@@ -5,7 +5,10 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find params[:id]
+    @product = Product.find(params[:id])
+    @review = Product.find(params[:id]).reviews[0]
   end
+
+
 
 end

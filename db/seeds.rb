@@ -21,6 +21,25 @@ end
 
 # Let's do this ...
 
+# users
+
+puts "Inserting some Users....."
+
+user1 = User.find_or_create_by!({
+  email: "user1@email.com",
+  password_digest:"password"
+  })
+
+user2 = User.find_or_create_by!({
+  email: "user2@email.com",
+  password_digest:"password"
+  })
+
+user3 = User.find_or_create_by!({
+  email: "user3@email.com",
+  password_digest:"password"
+  })
+
 ## CATEGORIES
 
 puts "Finding or Creating Categories ..."
@@ -34,20 +53,17 @@ cat3 = Category.find_or_create_by! name: 'Furniture'
 puts "Re-creating Products ..."
 
 Product.destroy_all
-
-item1 = cat1.products.create!({
+cat1.products.create!({
   name:  'Men\'s Classy shirt',
   description: Faker::Hipster.paragraph(4),
   image: open_asset('apparel1.jpg'),
   quantity: 10,
   price: 64.99
 
-  item1.reviews.create!({
-    description:Faker::Hipster.paragraph(1)
-    })
+  # item1.reviews.create!({
+  #   description:Faker::Hipster.paragraph(1)
+  #   })
 })
-
-
 
 cat1.products.create!({
   name:  'Women\'s Zebra pants',
@@ -140,3 +156,30 @@ cat3.products.create!({
 
 
 puts "DONE!"
+
+puts 'Creating some initial reviews'
+
+Review.destroy_all
+
+Review.create!({
+ product_id: 241,
+ user_id: 1,
+ description: 'So great!',
+ rating: 4
+ })
+
+ Review.create!({
+  product_id: 242,
+  user_id: 2,
+  description: 'AMAZINGOAINGSOIGNOIGNat!',
+  rating: 4
+  })
+
+  Review.create!({
+   product_id: 243,
+   user_id: 3,
+   description: 'Sofdsfsfsfsfsfsfsf great!',
+   rating: 4
+   })
+
+puts "DONE inserting reviews"
