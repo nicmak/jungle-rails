@@ -18,7 +18,6 @@ class OrdersController < ApplicationController
     }
     content.push(@content)
     end
-    byebug
     ::UserMailer.order_receipt(order.email, content).deliver_now
 
     if order.valid?

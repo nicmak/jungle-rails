@@ -27,18 +27,21 @@ puts "Inserting some Users....."
 
 user1 = User.find_or_create_by!({
   email: "user1@email.com",
-  password_digest:"password"
-  })
+  password:"password",
+  password_confirmation:"password"
+})
 
 user2 = User.find_or_create_by!({
   email: "user2@email.com",
-  password_digest:"password"
-  })
+  password:"password",
+  password_confirmation:"password"
+})
 
 user3 = User.find_or_create_by!({
   email: "user3@email.com",
-  password_digest:"password"
-  })
+  password:"password",
+  password_confirmation:"password"
+})
 
 ## CATEGORIES
 

@@ -27,9 +27,9 @@
           <dt>Rating</dt>
           <dd><%= @review.rating %></dd>
         </dl>
-      
 
-          <%= form_for "products/#{:product_id}/review" do |f| %>
+
+          <%= form_for [@product, @product.reviews.new] do |f| %>
           <%= f.text_area :description %>
           <%= f.submit %>
           <%= f.select :rating, [['horrible', 1], ['poor', 2], ['mediocre', 3], ['good', 4], ['great', 5]] %>
