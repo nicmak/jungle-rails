@@ -22,7 +22,19 @@
           <dd><%= @product.quantity %></dd>
           <dt>Price</dt>
           <dd><%= @product.price %></dd>
+          <% if @reviews.present? %>
+            <% @reviews.reverse_each do |review| %>
+              <%= render 'item', review: review %>
+            <% end %>
+          <% end %>
         </dl>
+        <% if current_user %>
+          <%= form_for [@product, @product.reviews.new] do |f| %>
+            <%= f.text_area :description %>
+            <%= f.select :rating, [1,2,3,4,5] %>
+            <%= f.submit %>
+          <% end %>
+        <% end %>
       </div>
     </div>
 

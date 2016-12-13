@@ -21,6 +21,14 @@ end
 
 # Let's do this ...
 
+# users
+
+puts "Inserting some Users....."
+
+["user1@email.com", "user2@email.com", "user3@email.com"].each do |email|
+    User.find_by(email: email) || User.create!(email: email, password: "password", password_confirmation: "password")
+end
+
 ## CATEGORIES
 
 puts "Finding or Creating Categories ..."
@@ -34,13 +42,16 @@ cat3 = Category.find_or_create_by! name: 'Furniture'
 puts "Re-creating Products ..."
 
 Product.destroy_all
-
 cat1.products.create!({
   name:  'Men\'s Classy shirt',
   description: Faker::Hipster.paragraph(4),
   image: open_asset('apparel1.jpg'),
   quantity: 10,
   price: 64.99
+
+  # item1.reviews.create!({
+  #   description:Faker::Hipster.paragraph(1)
+  #   })
 })
 
 cat1.products.create!({
@@ -124,13 +135,24 @@ cat3.products.create!({
   price: 987.65
 })
 
-cat3.products.create!({
+product1 = cat3.products.create!({
   name:  'Red Bookshelf',
   description: Faker::Hipster.paragraph(4),
   image: open_asset('furniture3.jpg'),
   quantity: 0,
   price: 2_483.75
 })
-
-
 puts "DONE!"
+puts 'Creating some initial reviews'
+Review.destroy_all
+p = Product.all
+p.each do |product|
+  product.reviews.create!({
+    user_id: User.order("RANDOM()").first,
+    description: "Review Paragraph",
+    rating: 4
+  })
+end
+
+
+puts "DONE inserting reviews"

@@ -3,6 +3,7 @@ class OrdersController < ApplicationController
   def show
     @order = Order.find(params[:id])
     @orders = Order.find(params[:id]).line_items
+    byebug
   end
 
   def create
@@ -17,7 +18,6 @@ class OrdersController < ApplicationController
     }
     content.push(@content)
     end
-    byebug
     ::UserMailer.order_receipt(order.email, content).deliver_now
 
     if order.valid?

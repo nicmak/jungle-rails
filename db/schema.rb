@@ -65,7 +65,6 @@ ActiveRecord::Schema.define(version: 20161210041022) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "reviews", ["product_id"], name: "index_reviews_on_product_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
