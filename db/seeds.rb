@@ -25,23 +25,9 @@ end
 
 puts "Inserting some Users....."
 
-user1 = User.find_or_create_by!({
-  email: "user1@email.com",
-  password:"password",
-  password_confirmation:"password"
-})
-
-user2 = User.find_or_create_by!({
-  email: "user2@email.com",
-  password:"password",
-  password_confirmation:"password"
-})
-
-user3 = User.find_or_create_by!({
-  email: "user3@email.com",
-  password:"password",
-  password_confirmation:"password"
-})
+["user1@email.com", "user2@email.com", "user3@email.com"].each do |email|
+    User.find_by(email: email) || User.create!(email: email, password: "password", password_confirmation: "password")
+end
 
 ## CATEGORIES
 
@@ -149,40 +135,24 @@ cat3.products.create!({
   price: 987.65
 })
 
-cat3.products.create!({
+product1 = cat3.products.create!({
   name:  'Red Bookshelf',
   description: Faker::Hipster.paragraph(4),
   image: open_asset('furniture3.jpg'),
   quantity: 0,
   price: 2_483.75
 })
-
-
 puts "DONE!"
-
 puts 'Creating some initial reviews'
-
 Review.destroy_all
-
-Review.create!({
- product_id: 241,
- user_id: 1,
- description: 'So great!',
- rating: 4
- })
-
- Review.create!({
-  product_id: 242,
-  user_id: 2,
-  description: 'AMAZINGOAINGSOIGNOIGNat!',
-  rating: 4
+p = Product.all
+p.each do |product|
+  product.reviews.create!({
+    user_id: User.order("RANDOM()").first,
+    description: "Review Paragraph",
+    rating: 4
   })
+end
 
-  Review.create!({
-   product_id: 243,
-   user_id: 3,
-   description: 'Sofdsfsfsfsfsfsfsf great!',
-   rating: 4
-   })
 
 puts "DONE inserting reviews"
