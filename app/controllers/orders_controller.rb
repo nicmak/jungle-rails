@@ -3,7 +3,6 @@ class OrdersController < ApplicationController
   def show
     @order = Order.find(params[:id])
     @orders = Order.find(params[:id]).line_items
-    byebug
   end
 
   def create
@@ -18,8 +17,8 @@ class OrdersController < ApplicationController
     }
     content.push(@content)
     end
-    ::UserMailer.order_receipt(order.email, content).deliver_now
 
+    ::UserMailer.order_receipt(order.email, content).deliver_now
     if order.valid?
       empty_cart!
       redirect_to order, notice: 'Your Order has been placed.'
@@ -32,7 +31,6 @@ class OrdersController < ApplicationController
     end
 
   private
-
   def empty_cart!
     # empty hash means no products in cart :)
     update_cart({})
@@ -45,8 +43,6 @@ class OrdersController < ApplicationController
       description: "Khurram Virani's Jungle Order",
       currency:    'cad'
     )
-
-
   end
 
   def create_order(stripe_charge)
@@ -67,10 +63,8 @@ class OrdersController < ApplicationController
       end
     end
     order.save!
-
     order
   end
-
   # returns total in cents not dollars (stripe uses cents as well)
   def cart_total
     total = 0
