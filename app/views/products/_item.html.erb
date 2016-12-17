@@ -3,7 +3,7 @@
 <dd><%= review.description %><dd>
 <dt>Rating</dt>
 <dd><%= review.rating %></dd>
-<% if current_user %>
+<% if current_user.id == review.user_id  %>
 <dt>Delete</dt>
 <dd><%= button_to "delete", product_review_path(@product.id, review.id), method: 'delete' %></dd>
 <% end %>

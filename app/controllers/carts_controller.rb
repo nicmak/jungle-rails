@@ -1,5 +1,7 @@
-class CartsController < ApplicationController\
+class CartsController < ApplicationController
   def show
+    @cart = cart
+    @cart_total = 0
   end
 
   def add_item
