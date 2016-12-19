@@ -8,17 +8,8 @@ class OrdersController < ApplicationController
   def create
     charge = perform_stripe_charge
     order  = create_order(charge)
-    content = []
-    order.line_items.each do |item|
-    @content = {
-      quantity: item.quantity,
-      itemCost: item.item_price_cents,
-      lineTotal: item.total_price_cents
-    }
-    content.push(@content)
-    end
 
-    ::UserMailer.order_receipt(order.email, content).deliver_now
+    UserMailer.order_receipt(order).deliver_now
     if order.valid?
       empty_cart!
       redirect_to order, notice: 'Your Order has been placed.'
@@ -63,7 +54,7 @@ class OrdersController < ApplicationController
       end
     end
     order.save!
-    order
+    return order
   end
   # returns total in cents not dollars (stripe uses cents as well)
   def cart_total

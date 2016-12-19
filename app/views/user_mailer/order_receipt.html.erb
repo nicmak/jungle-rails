@@ -5,12 +5,17 @@
   </head>
   <h1><%= @email %></h1>
   <body>
-
-  <% @content.each do |lineItem| %>
-    <%=lineItem.quantity %>
-    <%=lineItem.itemCost %>
-    <%=lineItem.lineTotal %>
+  <% allItemTotalCost = 0 %>
+  <% @order.line_items.each do |lineItem| %>
+  <% product=Product.find_by(id: lineItem.product_id)%>
+    <br>
+    <p>Name: <%=product.name%>
+    <p>Quantity: <%=lineItem.quantity %></p>
+    <p>Your Item cost is $<%=lineItem.item_price_cents %></p>
+    <p>Total for <%=product.name%> is $<%=lineItem.total_price_cents %>
+    <% allItemTotalCost += lineItem.total_price_cents %>
   <% end %>
+  <p>Your total cost for everything is $<%= allItemTotalCost %>
 
 
 

@@ -10,9 +10,9 @@ class UserMailer < ApplicationMailer
     mail to: email
   end
 
-  def order_receipt(email, content)
-    @content = content
-    @email = email
-    mail to: email
+  def order_receipt(order)
+    @order = order
+    @email = order.email
+    mail to: @email
   end
 end
